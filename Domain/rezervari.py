@@ -64,7 +64,7 @@ def get_checkin(rezervare):
 
 def get_str(rezervare):
     """
-    Gett-er pentru id-ul rezervarii
+    Functie de afisare
     :param rezervare: rezervarea
     :return: id-ul rezervarii date ca parametru
     """
