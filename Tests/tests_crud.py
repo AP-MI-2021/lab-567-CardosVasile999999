@@ -8,17 +8,17 @@ from Logic.crud import delete
 
 def get_data():
     return [
-            gestioneaza_rezervari(1, 'David', 1, 799, 'NU'),
-            gestioneaza_rezervari(2, 'Leon', 2, 699, 'DA'),
-            gestioneaza_rezervari(3, 'Matei', 3, 500, 'NU'),
-            gestioneaza_rezervari(4, 'Cristi', 4, 200, 'DA'),
-            gestioneaza_rezervari(6, 'Lorenzo', 4, 200, 'DA')
+            gestioneaza_rezervari(1, 'David', 'economy', 799, 'nu'),
+            gestioneaza_rezervari(2, 'Leon', 'economy plus', 699, 'da'),
+            gestioneaza_rezervari(3, 'Matei', 'business', 500, 'nu'),
+            gestioneaza_rezervari(4, 'Cristi', 'economy', 200, 'da'),
+            gestioneaza_rezervari(6, 'Lorenzo', 'business', 200, 'da')
         ]
 
 
 def test_create():
         rezervari = get_data()
-        params = (8, 'Sebi', 3, 450, 'DA')
+        params = (8, 'Sebi', 'economy', 450, 'da')
         r_new = gestioneaza_rezervari(*params)
         new_rezervare = create(rezervari, *params)
         assert r_new in new_rezervare
@@ -33,7 +33,7 @@ def test_read():
 
 def test_update():
         rezervari = get_data()
-        r_updated = gestioneaza_rezervari(1, 'Ionica', 2, 35, 'NU')
+        r_updated = gestioneaza_rezervari(1, 'Ionica', 'business', 35, 'nu')
         updated = update(rezervari, r_updated)
         assert r_updated in updated
         assert r_updated not in rezervari

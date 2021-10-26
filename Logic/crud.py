@@ -4,14 +4,14 @@ from Domain.rezervari import get_id
 
 def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin):
     """
-
-    :param lst_rezervari:
-    :param id_rezervare:
-    :param nume:
-    :param clasa:
-    :param pret:
-    :param checkin:
-    :return:
+    Creare lista noua
+    :param lst_rezervari: lista tutror persoanelor cu rezervari
+    :param id_rezervare: id-ul rezervarii trebuie sa fie unic
+    :param nume: numele persoanei care a facut rezervarea
+    :param clasa: clasa care poate fi doar: economy, economy plus sau business
+    :param pret: pret rezervare
+    :param checkin: checking facut , poate avea doar doua valori  : da/nu
+    :return: Creaza fiecare element rezervare in parte
     """
     rezervare = gestioneaza_rezervari(id_rezervare, nume, clasa, pret, checkin)
     return lst_rezervari + [rezervare]
@@ -19,10 +19,10 @@ def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin):
 
 def read(lst_rezervari, id_rezervare=None):
     """
-
-    :param lst_rezervari:
-    :param id_rezervare:
-    :return:
+     Citire lista
+    :param lst_rezervari: citeste o lista de rezervari
+    :param id_rezervare: id rezervarii respective
+    :return: lista citita
     """
     rezervare_cu_id = None
     for rezervare in lst_rezervari:
@@ -36,10 +36,10 @@ def read(lst_rezervari, id_rezervare=None):
 
 def update(lst_rezervari, new_rezervare):
     """
-
-    :param lst_rezervari:
-    :param new_rezervare:
-    :return:
+    Modifica o rezervare
+    :param lst_rezervari: o rezervare pe care vrem sa o modificam
+    :param new_rezervare: lista dupa modificare
+    :return: lista actualizata
     """
     new_rezervari = []
     for rezervare in lst_rezervari:
@@ -53,10 +53,10 @@ def update(lst_rezervari, new_rezervare):
 
 def delete(lst_rezervari, id_rezervare):
     """
-
-    :param lst_rezervari:
-    :param id_rezervare:
-    :return:
+    Stergem o rezervare
+    :param lst_rezervari: o lista de rezervari
+    :param id_rezervare: id listei pe care vrem sa-l stergem
+    :return: lista dupa ce am sters o rezervare
     """
     new_rezervari = []
     for rezervare in lst_rezervari:

@@ -5,7 +5,7 @@ def gestioneaza_rezervari(id_rezervare, nume, clasa, pret, checkin):
     :param nume: numele persoanei care a facut rezervarea
     :param clasa: clasa care poate fi doar: economy, economy plus sau business
     :param pret: pret rezervare
-    :param checkin: checking facut , poate avea doar doua valori  : DA/NU
+    :param checkin: checking facut , poate avea doar doua valori  : da/nu
     :return: o rezervare pentru companie aeriana
     """
     return {
@@ -68,4 +68,4 @@ def get_str(rezervare):
     :param rezervare: rezervarea
     :return: id-ul rezervarii date ca parametru
     """
-    return f'serbus {get_id(rezervare)}'
+    return f'Rezervarea cu id-ul: {get_id(rezervare)}, facuta de {get_nume(rezervare)}, pentru clasa {get_clasa(rezervare)}, avand pretul {get_pret(rezervare)} si checkin: {get_checkin(rezervare)}'
