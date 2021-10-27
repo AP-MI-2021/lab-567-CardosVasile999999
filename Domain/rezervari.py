@@ -8,13 +8,7 @@ def gestioneaza_rezervari(id_rezervare, nume, clasa, pret, checkin):
     :param checkin: checking facut , poate avea doar doua valori  : da/nu
     :return: o rezervare pentru companie aeriana
     """
-    return [
-        id_rezervare,
-        nume,
-        clasa,
-        pret,
-        checkin
-    ]
+    return [id_rezervare, nume, clasa, pret, checkin]
 
 
 def get_id(rezervare):
