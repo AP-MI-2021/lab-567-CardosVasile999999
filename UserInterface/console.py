@@ -1,11 +1,13 @@
 from Domain.rezervari import get_str, gestioneaza_rezervari
 from Logic.crud import create, update, delete
+from Logic.ieftinire import ieftinire_rezervari_cu_check_in
 from Logic.trecere_rezervari import trecere_rezervari_la_o_clasa_superioara
 
 
 def show_menu():
     print('1. CRUD')
     print('2. Trecerea tuturor rezervărilor făcute pe un nume citit la o clasă superioară')
+    print('3. Ieftinirea rezervariilor cu check-in facut cu un procentaj citit')
     print('x. Exit')
 
 
@@ -74,6 +76,13 @@ def handle_trecere_rezervari(rezervari):
     return rezervari
 
 
+def handle_ieftinire_rezervari(rezervari):
+    procent = float(input('Dati procentul cu care vreti sa se reduca rezervarile: '))
+    rezervari = ieftinire_rezervari_cu_check_in(rezervari, procent)
+    print('Rezervarile au fost reduse cu succes !')
+    return rezervari
+
+
 def run_ui(rezervari):
 
     while True:
@@ -83,6 +92,8 @@ def run_ui(rezervari):
             rezervari = handle_crud(rezervari)
         elif optiune == '2':
             rezervari = handle_trecere_rezervari(rezervari)
+        elif optiune == '3':
+            rezervari = handle_ieftinire_rezervari(rezervari)
         elif optiune == 'x':
             break
         else:

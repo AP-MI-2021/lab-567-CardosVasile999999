@@ -1,4 +1,5 @@
 from Logic.crud import create
+from Tests.test_ieftinire import test_ieftinire_rezervari_cu_check_in
 from Tests.tests_crud import test_crud
 from UserInterface.console import run_ui
 from Tests.test_trecere_rezervari import test_trecere_rezervari_la_o_clasa_superioara
@@ -19,4 +20,5 @@ def main():
 if __name__ == '__main__':
     test_crud()
     test_trecere_rezervari_la_o_clasa_superioara()
+    test_ieftinire_rezervari_cu_check_in()
     main()
