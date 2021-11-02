@@ -1,9 +1,11 @@
 from Domain.rezervari import get_str, gestioneaza_rezervari
 from Logic.crud import create, update, delete
+from Logic.trecere_rezervari import trecere_rezervari_la_o_clasa_superioara
 
 
 def show_menu():
     print('1. CRUD')
+    print('2. Trecerea tuturor rezervărilor făcute pe un nume citit la o clasă superioară')
     print('x. Exit')
 
 
@@ -60,6 +62,13 @@ def handle_crud(rezervari):
     return rezervari
 
 
+def handle_trecere_rezervari(rezervari):
+    nume = input('Dati numele la care e facuta rezervarea pe care o doriti sa o treceti la o clasa superioara: ')
+    rezervari = trecere_rezervari_la_o_clasa_superioara(rezervari, nume)
+    print('Rezervariile au fost actualizate cu succes !')
+    return rezervari
+
+
 def run_ui(rezervari):
 
     while True:
@@ -67,6 +76,8 @@ def run_ui(rezervari):
         optiune = input('Optiunea aleasa: ')
         if optiune == '1':
             rezervari = handle_crud(rezervari)
+        elif optiune == '2':
+            rezervari = handle_trecere_rezervari(rezervari)
         elif optiune == 'x':
             break
         else:
