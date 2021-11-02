@@ -13,11 +13,20 @@ def show_menu():
 
 def handle_add(rezervari):
     try:
+        cls = ['economy', 'economy plus', 'business']
+        bol = ['da', 'nu']
         id_rezervare = int(input('Dati id-ul rezervarii: '))
         nume = input('Dati numele persoanei care a facut rezervarea: ')
         clasa = input('Dati clasa cu care zburati, poate fi doar: economy, economy plus, business: ')
+        while clasa not in cls:
+            clasa = input(f'{clasa} nu respecta cerinta, alege: "economy", "economy plus" sau "business", reincearca: ')
         pret = float(input('Pretul zborului: '))
+        while pret <= 0:
+            pret = float(input('Pretul trebuie sa fie mai mare decat 0, reincearca: '))
         checkin = input('checkin: da sau nu: ')
+        while checkin not in bol:
+            checkin = input('checkin trebuie sa fie "da" sau "nu", reincearca: ')
+        print('Rezervarea a fost facuta cu succes!')
         return create(rezervari, id_rezervare, nume, clasa, pret, checkin)
     except ValueError as ve:
         print('Eroare:', ve)
@@ -77,17 +86,23 @@ def handle_crud(rezervari):
 
 def handle_trecere_rezervari(rezervari):
     nume = input('Dati numele la care e facuta rezervarea pe care o doriti sa o treceti la o clasa superioara: ')
+    aux = rezervari
     rezervari = trecere_rezervari_la_o_clasa_superioara(rezervari, nume)
-    print('Rezervariile au fost actualizate cu succes !')
-    return rezervari
+    if rezervari == aux:
+        print(f'Nu exista rezervari pe numele {nume}')
+        return rezervari
+    else:
+        print('Rezervariile au fost actualizate cu succes !')
+        return rezervari
 
 
 def handle_ieftinire_rezervari(rezervari):
     procent = float(input('Dati procentul cu care vreti sa se reduca rezervarile: '))
+    aux = rezervari
     rezervari = ieftinire_rezervari_cu_check_in(rezervari, procent)
-    if rezervari is False:
+    if rezervari == aux:
         print('Nu exista rezervare cu check-in in lista.')
-        return None
+        return rezervari
     else:
         print('Rezervarile au fost reduse cu succes !')
         return rezervari
