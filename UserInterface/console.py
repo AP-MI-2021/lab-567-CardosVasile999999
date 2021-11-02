@@ -85,8 +85,12 @@ def handle_trecere_rezervari(rezervari):
 def handle_ieftinire_rezervari(rezervari):
     procent = float(input('Dati procentul cu care vreti sa se reduca rezervarile: '))
     rezervari = ieftinire_rezervari_cu_check_in(rezervari, procent)
-    print('Rezervarile au fost reduse cu succes !')
-    return rezervari
+    if rezervari is False:
+        print('Nu exista rezervare cu check-in in lista.')
+        return None
+    else:
+        print('Rezervarile au fost reduse cu succes !')
+        return rezervari
 
 
 def run_ui(rezervari):

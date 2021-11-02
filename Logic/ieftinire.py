@@ -9,8 +9,10 @@ def ieftinire_rezervari_cu_check_in(lst_rezervari, procentaj):
     :return: lista cu preturi reduse acolo unde este check-in facut
     """
     result = []
+    check_in = False
     for rezervare in lst_rezervari:
         if get_checkin(rezervare) == 'da':
+            check_in = True
             new_pret = get_pret(rezervare) - (procentaj / 100) * get_pret(rezervare)
             result.append(gestioneaza_rezervari(
                 get_id(rezervare),
@@ -21,5 +23,8 @@ def ieftinire_rezervari_cu_check_in(lst_rezervari, procentaj):
             ))
         else:
             result.append(rezervare)
+
+    if check_in is False:
+        return False
 
     return result

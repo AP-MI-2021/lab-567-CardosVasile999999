@@ -7,9 +7,9 @@ from Tests.test_trecere_rezervari import test_trecere_rezervari_la_o_clasa_super
 
 def main():
     rezervari = []
-    rezervari = create(rezervari, 1, "Vasile", "economy", 123.213, "da")
-    rezervari = create(rezervari, 2, "Alex", "economy plus", 1234.213, "da")
-    rezervari = create(rezervari, 3, "Ioana", "business", 123.3, "nu")
+    rezervari = create(rezervari, 1, "Vasile", "economy", 123.213, "nu")
+    rezervari = create(rezervari, 2, "Alex", "economy plus", 1234.213, "nu")
+    rezervari = create(rezervari, 3, "Ioana", "business", 123.3, "da")
     rezervari = create(rezervari, 4, "Lorenzo", "economy plus", 34.213, "nu")
     rezervari = create(rezervari, 5, "Mihai", "economy", 1234, "da")
     rezervari = create(rezervari, 6, "Mario", "economy plus", 24.13, "nu")
