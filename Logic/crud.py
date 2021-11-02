@@ -51,6 +51,9 @@ def update(lst_rezervari, new_rezervare):
     :param new_rezervare: lista dupa modificare
     :return: lista actualizata
     """
+    if read(lst_rezervari, get_id(new_rezervare)) is None:
+        raise ValueError(f'Nu exista o rezervare cu id-ul {get_id(new_rezervare)} in lista')
+
     new_rezervari = []
     for rezervare in lst_rezervari:
         if get_id(rezervare) != get_id(new_rezervare):
@@ -68,6 +71,9 @@ def delete(lst_rezervari, id_rezervare):
     :param id_rezervare: id listei pe care vrem sa-l stergem
     :return: lista dupa ce am sters o rezervare
     """
+    if read(lst_rezervari, id_rezervare) is None:
+        raise ValueError(f'Nu exista o rezervare cu id-ul {id_rezervare} in lista')
+
     new_rezervari = []
     for rezervare in lst_rezervari:
         if get_id(rezervare) != id_rezervare:

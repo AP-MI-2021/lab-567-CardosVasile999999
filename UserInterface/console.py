@@ -31,18 +31,24 @@ def handle_show_all(rezervari):
 
 
 def handle_update(rezervari):
-    id_rezervare = int(input('Dati id-ul rezervarii care se actualizeaza: '))
-    nume = input('Dati numele noii persoanei care face rezervarea(daca e cazul): ')
-    clasa = input('Dati noua clasa cu care zburati, poate fi doar: economy, economy plus, business: ')
-    pret = float(input('Pretul noului zborului: '))
-    checkin = input('checkin: da sau nu: ')
-    return update(rezervari, gestioneaza_rezervari(id_rezervare, nume, clasa, pret, checkin))
+    try:
+        id_rezervare = int(input('Dati id-ul rezervarii care se actualizeaza: '))
+        nume = input('Dati numele noii persoanei care face rezervarea(daca e cazul): ')
+        clasa = input('Dati noua clasa cu care zburati, poate fi doar: economy, economy plus, business: ')
+        pret = float(input('Pretul noului zborului: '))
+        checkin = input('checkin: da sau nu: ')
+        return update(rezervari, gestioneaza_rezervari(id_rezervare, nume, clasa, pret, checkin))
+    except ValueError as ve:
+        print('Eroare', ve)
 
 
 def handle_delete(rezervari):
-    id_rezervare = int(input('Dati id-ul rezervarii care se va sterge: '))
-    print('Stergerea a avut loc cu succes!')
-    return delete(rezervari, id_rezervare)
+    try:
+        id_rezervare = int(input('Dati id-ul rezervarii care se va sterge: '))
+        print('Stergerea a avut loc cu succes!')
+        return delete(rezervari, id_rezervare)
+    except ValueError as ve:
+        print('Eroare: ', ve)
 
 
 def handle_crud(rezervari):

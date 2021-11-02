@@ -1,9 +1,6 @@
 from Domain.rezervari import gestioneaza_rezervari
 from Domain.rezervari import get_id
-from Logic.crud import create
-from Logic.crud import read
-from Logic.crud import update
-from Logic.crud import delete
+from Logic.crud import create, read, update, delete
 
 
 def get_data():
@@ -22,7 +19,7 @@ def test_create():
         r_new = gestioneaza_rezervari(*params)
         new_rezervare = create(rezervari, *params)
         assert r_new in new_rezervare
-        params2 =(8, 'David', 'economy plus', 543, 'nu')
+        params2 = (8, 'David', 'economy plus', 543, 'nu')
         try:
                 _ = create(new_rezervare, *params2)
                 assert False
