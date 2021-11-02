@@ -13,17 +13,27 @@ def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin):
     :param checkin: checking facut , poate avea doar doua valori  : da/nu
     :return: Creaza fiecare element rezervare in parte
     """
+    if read(lst_rezervari, id_rezervare) is not None:
+        raise ValueError(f'exista deja o rezervare cu id-ul {id_rezervare}')
+
     rezervare = gestioneaza_rezervari(id_rezervare, nume, clasa, pret, checkin)
     return lst_rezervari + [rezervare]
 
 
 def read(lst_rezervari, id_rezervare=None):
     """
-     Citire lista
-    :param lst_rezervari: citeste o lista de rezervari
+    Citire o rezervare
+    :param lst_rezervari: lista de rezervari
     :param id_rezervare: id rezervarii respective
-    :return: lista citita
+    :return:
+         - rezervarea cu id_rezervare, daca exista
+         -lista cu toate rezervariile daca id_rezervare = None
+         -None daca nu exista o rezervare cu id_rezervare
     """
+
+    if not id_rezervare:
+        return lst_rezervari
+
     rezervare_cu_id = None
     for rezervare in lst_rezervari:
         if get_id(rezervare) == id_rezervare:
@@ -31,7 +41,7 @@ def read(lst_rezervari, id_rezervare=None):
 
     if rezervare_cu_id:
         return rezervare_cu_id
-    return lst_rezervari
+    return None
 
 
 def update(lst_rezervari, new_rezervare):

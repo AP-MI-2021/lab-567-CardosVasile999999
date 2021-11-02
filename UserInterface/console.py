@@ -10,12 +10,17 @@ def show_menu():
 
 
 def handle_add(rezervari):
-    id_rezervare = int(input('Dati id-ul rezervarii: '))
-    nume = input('Dati numele persoanei care a facut rezervarea: ')
-    clasa = input('Dati clasa cu care zburati, poate fi doar: economy, economy plus, business: ')
-    pret = float(input('Pretul zborului: '))
-    checkin = input('checkin: da sau nu: ')
-    return create(rezervari, id_rezervare, nume, clasa, pret, checkin)
+    try:
+        id_rezervare = int(input('Dati id-ul rezervarii: '))
+        nume = input('Dati numele persoanei care a facut rezervarea: ')
+        clasa = input('Dati clasa cu care zburati, poate fi doar: economy, economy plus, business: ')
+        pret = float(input('Pretul zborului: '))
+        checkin = input('checkin: da sau nu: ')
+        return create(rezervari, id_rezervare, nume, clasa, pret, checkin)
+    except ValueError as ve:
+        print('Eroare:', ve)
+
+    return rezervari
 
 
 def handle_show_all(rezervari):

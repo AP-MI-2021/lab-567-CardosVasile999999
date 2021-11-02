@@ -22,6 +22,12 @@ def test_create():
         r_new = gestioneaza_rezervari(*params)
         new_rezervare = create(rezervari, *params)
         assert r_new in new_rezervare
+        params2 =(8, 'David', 'economy plus', 543, 'nu')
+        try:
+                _ = create(new_rezervare, *params2)
+                assert False
+        except ValueError:
+                assert True
 
 
 def test_read():
