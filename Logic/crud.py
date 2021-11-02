@@ -14,7 +14,7 @@ def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin):
     :return: Creaza fiecare element rezervare in parte
     """
     if read(lst_rezervari, id_rezervare) is not None:
-        raise ValueError(f'exista deja o rezervare cu id-ul {id_rezervare}')
+        raise ValueError(f'Exista deja o rezervare cu id-ul {id_rezervare}')
 
     rezervare = gestioneaza_rezervari(id_rezervare, nume, clasa, pret, checkin)
     return lst_rezervari + [rezervare]
