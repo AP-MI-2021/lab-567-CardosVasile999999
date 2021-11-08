@@ -1,6 +1,7 @@
 from Domain.rezervari import get_str, gestioneaza_rezervari
 from Logic.crud import create, update, delete
 from Logic.ieftinire import ieftinire_rezervari_cu_check_in
+from Logic.pret_maxim_clase import get_maximum_price_from_every_class
 from Logic.trecere_rezervari import trecere_rezervari_la_o_clasa_superioara
 
 
@@ -12,25 +13,19 @@ def show_menu():
 
 
 def handle_add(rezervari):
+    aux = rezervari
     try:
-        cls = ['economy', 'economy plus', 'business']
-        bol = ['da', 'nu']
         id_rezervare = int(input('Dati id-ul rezervarii: '))
         nume = input('Dati numele persoanei care a facut rezervarea: ')
         clasa = input('Dati clasa cu care zburati, poate fi doar: economy, economy plus, business: ')
-        while clasa not in cls:
-            clasa = input(f'{clasa} nu respecta cerinta, alege: "economy", "economy plus" sau "business", reincearca: ')
         pret = float(input('Pretul zborului: '))
-        while pret <= 0:
-            pret = float(input('Pretul trebuie sa fie mai mare decat 0, reincearca: '))
         checkin = input('checkin: da sau nu: ')
-        while checkin not in bol:
-            checkin = input('checkin trebuie sa fie "da" sau "nu", reincearca: ')
-        print('Rezervarea a fost facuta cu succes!')
-        return create(rezervari, id_rezervare, nume, clasa, pret, checkin)
+        rezervari = create(rezervari, id_rezervare, nume, clasa, pret, checkin)
+        if aux != rezervari:
+            print('Rezervarea a fost facuta cu succes!')
+        return rezervari
     except ValueError as ve:
         print('Eroare:', ve)
-
     return rezervari
 
 
@@ -52,12 +47,15 @@ def handle_update(rezervari):
 
 
 def handle_delete(rezervari):
+    aux = rezervari
     try:
         id_rezervare = int(input('Dati id-ul rezervarii care se va sterge: '))
-        print('Stergerea a avut loc cu succes!')
-        return delete(rezervari, id_rezervare)
+        rezervari = delete(rezervari, id_rezervare)
+        if aux != rezervari:
+            print('Stergerea a avut loc cu succes!')
+        return rezervari
     except ValueError as ve:
-        print('Eroare: ', ve)
+        print('Eroare:', ve)
 
 
 def handle_crud(rezervari):
@@ -97,15 +95,22 @@ def handle_trecere_rezervari(rezervari):
 
 
 def handle_ieftinire_rezervari(rezervari):
-    procent = float(input('Dati procentul cu care vreti sa se reduca rezervarile: '))
+    procent = float(input('Dati procentul cu care vreti sa se reduca rezervarile (intre 0 si 100): '))
     aux = rezervari
     rezervari = ieftinire_rezervari_cu_check_in(rezervari, procent)
+    if procent < 0 or procent > 100:
+        return rezervari
     if rezervari == aux:
         print('Nu exista rezervare cu check-in in lista.')
         return rezervari
     else:
         print('Rezervarile au fost reduse cu succes !')
         return rezervari
+
+
+def handle_maximum_price_by_class(rezervari):
+    rezervari = get_maximum_price_from_every_class(rezervari)
+    return rezervari
 
 
 def run_ui(rezervari):
@@ -119,9 +124,9 @@ def run_ui(rezervari):
             rezervari = handle_trecere_rezervari(rezervari)
         elif optiune == '3':
             rezervari = handle_ieftinire_rezervari(rezervari)
+        elif optiune == '4':
+            rezervari = handle_maximum_price_by_class(rezervari)
         elif optiune == 'x':
             break
         else:
             print('Optiune invalida')
-
-    return rezervari

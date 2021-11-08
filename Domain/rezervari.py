@@ -62,4 +62,5 @@ def get_str(rezervare):
     :param rezervare: rezervarea
     :return: id-ul rezervarii date ca parametru
     """
-    return f'Rezervarea cu id-ul: {get_id(rezervare)}, facuta de {get_nume(rezervare)}, pentru clasa {get_clasa(rezervare)}, avand pretul {get_pret(rezervare)} si checkin: {get_checkin(rezervare)}'
+    return f'Rezervarea cu id-ul: {get_id(rezervare)}, facuta de {get_nume(rezervare)},pentru ' \
+           f'clasa {get_clasa(rezervare)}, avand pretul {get_pret(rezervare)} si checkin: {get_checkin(rezervare)}'

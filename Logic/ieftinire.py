@@ -8,6 +8,9 @@ def ieftinire_rezervari_cu_check_in(lst_rezervari, procentaj):
     :param procentaj: procentajul cu care se va reduce (intre 0 si 100)
     :return: lista cu preturi reduse acolo unde este check-in facut
     """
+    if procentaj <= 0 or procentaj >= 100:
+        print(f'{procentaj} nu se afla intre 0 si 100')
+        return lst_rezervari
     result = []
     for rezervare in lst_rezervari:
         if get_checkin(rezervare) == 'da':

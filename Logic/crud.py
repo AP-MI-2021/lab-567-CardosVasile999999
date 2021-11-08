@@ -1,4 +1,4 @@
-from Domain.rezervari import gestioneaza_rezervari
+from Domain.rezervari import gestioneaza_rezervari, get_clasa, get_checkin, get_pret
 from Domain.rezervari import get_id
 
 
@@ -15,6 +15,15 @@ def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin):
     """
     if read(lst_rezervari, id_rezervare) is not None:
         raise ValueError(f'Exista deja o rezervare cu id-ul {id_rezervare}')
+
+    cls = ['economy', 'economy plus', 'business']
+    danu = ['da', 'nu']
+    if clasa not in cls:
+        raise ValueError(f'{clasa} nu se afla in optiuniile: {cls}')
+    if checkin not in danu:
+        raise ValueError(f'Checkin-ul trebuie sa fie "da" sau "nu"')
+    if pret <= 0:
+        raise ValueError('Pretul trebuie sa fie mare mare decat 0')
 
     rezervare = gestioneaza_rezervari(id_rezervare, nume, clasa, pret, checkin)
     return lst_rezervari + [rezervare]
@@ -51,6 +60,8 @@ def update(lst_rezervari, new_rezervare):
     :param new_rezervare: lista dupa modificare
     :return: lista actualizata
     """
+    cls = ['economy', 'economy plus', 'business']
+    danu = ['da', 'nu']
     if read(lst_rezervari, get_id(new_rezervare)) is None:
         raise ValueError(f'Nu exista o rezervare cu id-ul {get_id(new_rezervare)} in lista')
 
@@ -60,6 +71,13 @@ def update(lst_rezervari, new_rezervare):
             new_rezervari.append(rezervare)
         else:
             new_rezervari.append(new_rezervare)
+
+    if get_clasa(new_rezervare) not in cls:
+        raise ValueError(f'{get_clasa(new_rezervare)} nu se afla in optiuniile: {cls}')
+    if get_checkin(new_rezervare) not in danu:
+        raise ValueError(f'Checkin-ul trebuie sa fie "da" sau "nu"')
+    if get_pret(new_rezervare) <= 0:
+        raise ValueError('Pretul trebuie sa fie mare mare decat 0')
 
     return new_rezervari
 
