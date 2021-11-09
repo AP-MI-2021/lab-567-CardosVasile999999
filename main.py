@@ -1,5 +1,8 @@
 from Logic.crud import create
+from Tests.test_afisare_suma_pret_descrescator import test_show_sum_of_all_prices_by_name
 from Tests.test_ieftinire import test_ieftinire_rezervari_cu_check_in
+from Tests.test_ordonare_dupa_pret_descrescator import test_sort_reservations_by_price_decesting
+from Tests.test_pret_maxim_clase import test_get_maximum_price_from_every_class
 from Tests.tests_crud import test_crud
 from UserInterface.command_line_console import run_ui2
 from UserInterface.console import run_ui
@@ -31,4 +34,7 @@ if __name__ == '__main__':
     test_crud()
     test_trecere_rezervari_la_o_clasa_superioara()
     test_ieftinire_rezervari_cu_check_in()
+    test_get_maximum_price_from_every_class()
+    test_sort_reservations_by_price_decesting()
+    test_show_sum_of_all_prices_by_name()
     main()

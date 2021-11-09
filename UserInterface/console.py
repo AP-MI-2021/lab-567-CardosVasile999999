@@ -1,6 +1,8 @@
 from Domain.rezervari import get_str, gestioneaza_rezervari
+from Logic.afisare_suma_pret_nume import show_sum_of_all_prices_by_name
 from Logic.crud import create, update, delete
 from Logic.ieftinire import ieftinire_rezervari_cu_check_in
+from Logic.ordonare_dupa_pret_descrescator import sort_reservations_by_price_decesting
 from Logic.pret_maxim_clase import get_maximum_price_from_every_class
 from Logic.trecere_rezervari import trecere_rezervari_la_o_clasa_superioara
 
@@ -9,6 +11,9 @@ def show_menu():
     print('1. CRUD')
     print('2. Trecerea tuturor rezervărilor făcute pe un nume citit la o clasă superioară')
     print('3. Ieftinirea rezervariilor cu check-in facut cu un procentaj citit')
+    print('4. Determinarea pretului maxim pentru fiecare clasa')
+    print('5. Ordonarea rezervarilor descrescator dupa pret')
+    print('6. Afisarea sumelor preturilor pentru fiecare nume')
     print('x. Exit')
 
 
@@ -109,8 +114,25 @@ def handle_ieftinire_rezervari(rezervari):
 
 
 def handle_maximum_price_by_class(rezervari):
-    rezervari = get_maximum_price_from_every_class(rezervari)
+    clasa = ['economy', 'economy plus', 'business']
+    maxim = get_maximum_price_from_every_class(rezervari)
+    for i in range(0, 3):
+        if maxim[i] != -1:
+            print(f'{clasa[i]} are ca pret maxim: {maxim[i]}')
+        else:
+            print(f'Nu exista nici o rezervare cu clasa {clasa[i]}')
+
+
+def handle_ordonare_rezervari(rezervari):
+    rezervari = sort_reservations_by_price_decesting(rezervari)
+    print('Ordonarea a avut loc cu succes !')
     return rezervari
+
+
+def handle_afisare_suma_pret_nume(rezervari):
+    preturi = show_sum_of_all_prices_by_name(rezervari)
+    for pret in preturi:
+        print(pret)
 
 
 def run_ui(rezervari):
@@ -125,7 +147,11 @@ def run_ui(rezervari):
         elif optiune == '3':
             rezervari = handle_ieftinire_rezervari(rezervari)
         elif optiune == '4':
-            rezervari = handle_maximum_price_by_class(rezervari)
+            handle_maximum_price_by_class(rezervari)
+        elif optiune == '5':
+            rezervari = handle_ordonare_rezervari(rezervari)
+        elif optiune == '6':
+            handle_afisare_suma_pret_nume(rezervari)
         elif optiune == 'x':
             break
         else:
