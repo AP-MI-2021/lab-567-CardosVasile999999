@@ -5,7 +5,7 @@ from Domain.rezervari import get_id
 def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin, undo_list, redo_list):
     """
     Creare lista noua
-    :param redo_list:
+    :param redo_list: lista pentru redo
     :param undo_list: salvam lista pentru a face undo
     :param lst_rezervari: lista tutror persoanelor cu rezervari
     :param id_rezervare: id-ul rezervarii trebuie sa fie unic
@@ -60,7 +60,7 @@ def read(lst_rezervari, id_rezervare=None):
 def update(lst_rezervari, new_rezervare, undo_list, redo_list):
     """
     Modifica o rezervare
-    :param redo_list:
+    :param redo_list: lista pentru redo
     :param undo_list: salvam lista pentru a face undo
     :param lst_rezervari: o rezervare pe care vrem sa o modificam
     :param new_rezervare: lista dupa modificare
@@ -92,7 +92,7 @@ def update(lst_rezervari, new_rezervare, undo_list, redo_list):
 def delete(lst_rezervari, id_rezervare, undo_list, redo_list):
     """
     Stergem o rezervare
-    :param redo_list:
+    :param redo_list: lista pentru redo
     :param undo_list: salvam lista pentru a face undo
     :param lst_rezervari: o lista de rezervari
     :param id_rezervare: id listei pe care vrem sa-l stergem
