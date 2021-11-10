@@ -15,7 +15,7 @@ def get_data():
 
 def test_trecere_rezervari_la_o_clasa_superioara():
     rezervari = get_data()
-    rezervari = trecere_rezervari_la_o_clasa_superioara(rezervari, 'Vasile')
+    rezervari = trecere_rezervari_la_o_clasa_superioara(rezervari, 'Vasile', [], [])
     for rezervare in rezervari:
         if get_nume(rezervare) == 'Vasile' and get_id(rezervare) == 1:
             assert get_clasa(rezervare) == 'economy plus'

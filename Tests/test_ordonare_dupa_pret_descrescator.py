@@ -20,7 +20,7 @@ def get_data():
 
 def test_sort_reservations_by_price_decesting():
     rezervari = get_data()
-    rezervari = sort_reservations_by_price_decesting(rezervari)
+    rezervari = sort_reservations_by_price_decesting(rezervari, [], [])
     assert get_pret(rezervari[0]) == 12143
     assert get_id(rezervari[1]) == 1
     assert get_nume(rezervari[2]) == 'Anabella'

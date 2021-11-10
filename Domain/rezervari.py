@@ -8,7 +8,13 @@ def gestioneaza_rezervari(id_rezervare, nume, clasa, pret, checkin):
     :param checkin: checking facut , poate avea doar doua valori  : da/nu
     :return: o rezervare pentru companie aeriana
     """
-    return [id_rezervare, nume, clasa, pret, checkin]
+    return {
+        'id': id_rezervare,
+        'nume': nume,
+        'clasa': clasa,
+        'pret': pret,
+        'checkin': checkin
+    }
 
 
 def get_id(rezervare):
@@ -17,7 +23,7 @@ def get_id(rezervare):
     :param rezervare: rezervarea
     :return: id-ul rezervarii date ca parametru
     """
-    return rezervare[0]
+    return rezervare['id']
 
 
 def get_nume(rezervare):
@@ -26,7 +32,7 @@ def get_nume(rezervare):
     :param rezervare: rezervarea
     :return: numele rezervarii date ca parametru
     """
-    return rezervare[1]
+    return rezervare['nume']
 
 
 def get_clasa(rezervare):
@@ -35,7 +41,7 @@ def get_clasa(rezervare):
     :param rezervare: rezervarea
     :return: clasa rezervarii date ca parametru
     """
-    return rezervare[2]
+    return rezervare['clasa']
 
 
 def get_pret(rezervare):
@@ -44,7 +50,7 @@ def get_pret(rezervare):
     :param rezervare: rezervarea
     :return: pretul rezervarii date ca parametru
     """
-    return rezervare[3]
+    return rezervare['pret']
 
 
 def get_checkin(rezervare):
@@ -53,7 +59,7 @@ def get_checkin(rezervare):
     :param rezervare: rezervarea
     :return: checkin-ul rezervarii date ca parametru
     """
-    return rezervare[4]
+    return rezervare['checkin']
 
 
 def get_str(rezervare):

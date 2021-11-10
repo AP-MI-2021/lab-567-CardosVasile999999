@@ -2,9 +2,11 @@ from Domain.rezervari import gestioneaza_rezervari, get_clasa, get_checkin, get_
 from Domain.rezervari import get_id
 
 
-def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin):
+def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin, undo_list, redo_list):
     """
     Creare lista noua
+    :param redo_list:
+    :param undo_list: salvam lista pentru a face undo
     :param lst_rezervari: lista tutror persoanelor cu rezervari
     :param id_rezervare: id-ul rezervarii trebuie sa fie unic
     :param nume: numele persoanei care a facut rezervarea
@@ -26,6 +28,8 @@ def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin):
         raise ValueError('Pretul trebuie sa fie mare mare decat 0')
 
     rezervare = gestioneaza_rezervari(id_rezervare, nume, clasa, pret, checkin)
+    undo_list.append(lst_rezervari)
+    redo_list.clear()
     return lst_rezervari + [rezervare]
 
 
@@ -53,9 +57,11 @@ def read(lst_rezervari, id_rezervare=None):
     return None
 
 
-def update(lst_rezervari, new_rezervare):
+def update(lst_rezervari, new_rezervare, undo_list, redo_list):
     """
     Modifica o rezervare
+    :param redo_list:
+    :param undo_list: salvam lista pentru a face undo
     :param lst_rezervari: o rezervare pe care vrem sa o modificam
     :param new_rezervare: lista dupa modificare
     :return: lista actualizata
@@ -78,13 +84,16 @@ def update(lst_rezervari, new_rezervare):
         raise ValueError(f'Checkin-ul trebuie sa fie "da" sau "nu"')
     if get_pret(new_rezervare) <= 0:
         raise ValueError('Pretul trebuie sa fie mare mare decat 0')
-
+    undo_list.append(lst_rezervari)
+    redo_list.clear()
     return new_rezervari
 
 
-def delete(lst_rezervari, id_rezervare):
+def delete(lst_rezervari, id_rezervare, undo_list, redo_list):
     """
     Stergem o rezervare
+    :param redo_list:
+    :param undo_list: salvam lista pentru a face undo
     :param lst_rezervari: o lista de rezervari
     :param id_rezervare: id listei pe care vrem sa-l stergem
     :return: lista dupa ce am sters o rezervare
@@ -97,4 +106,6 @@ def delete(lst_rezervari, id_rezervare):
         if get_id(rezervare) != id_rezervare:
             new_rezervari.append(rezervare)
 
+    undo_list.append(lst_rezervari)
+    redo_list.clear()
     return new_rezervari

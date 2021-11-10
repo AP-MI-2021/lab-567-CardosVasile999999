@@ -5,6 +5,7 @@ from Logic.ieftinire import ieftinire_rezervari_cu_check_in
 from Logic.ordonare_dupa_pret_descrescator import sort_reservations_by_price_decesting
 from Logic.pret_maxim_clase import get_maximum_price_from_every_class
 from Logic.trecere_rezervari import trecere_rezervari_la_o_clasa_superioara
+from Logic.undo_redo import do_undo, do_redo
 
 
 def show_menu():
@@ -14,10 +15,12 @@ def show_menu():
     print('4. Determinarea pretului maxim pentru fiecare clasa')
     print('5. Ordonarea rezervarilor descrescator dupa pret')
     print('6. Afisarea sumelor preturilor pentru fiecare nume')
+    print('u. Undo ultima comanda')
+    print('r. Redo ultima comanda')
     print('x. Exit')
 
 
-def handle_add(rezervari):
+def handle_add(rezervari, undo_list, redo_list):
     aux = rezervari
     try:
         id_rezervare = int(input('Dati id-ul rezervarii: '))
@@ -25,7 +28,7 @@ def handle_add(rezervari):
         clasa = input('Dati clasa cu care zburati, poate fi doar: economy, economy plus, business: ')
         pret = float(input('Pretul zborului: '))
         checkin = input('checkin: da sau nu: ')
-        rezervari = create(rezervari, id_rezervare, nume, clasa, pret, checkin)
+        rezervari = create(rezervari, id_rezervare, nume, clasa, pret, checkin, undo_list, redo_list)
         if aux != rezervari:
             print('Rezervarea a fost facuta cu succes!')
         return rezervari
@@ -35,27 +38,30 @@ def handle_add(rezervari):
 
 
 def handle_show_all(rezervari):
-    for rezervare in rezervari:
-        print(get_str(rezervare))
+    if rezervari is not None:
+        for rezervare in rezervari:
+            print(get_str(rezervare))
+    else:
+        print('Nu exista rezervari in lista')
 
 
-def handle_update(rezervari):
+def handle_update(rezervari, undo_list, redo_list):
     try:
         id_rezervare = int(input('Dati id-ul rezervarii care se actualizeaza: '))
         nume = input('Dati numele noii persoanei care face rezervarea(daca e cazul): ')
         clasa = input('Dati noua clasa cu care zburati, poate fi doar: economy, economy plus, business: ')
         pret = float(input('Pretul noului zborului: '))
         checkin = input('checkin: da sau nu: ')
-        return update(rezervari, gestioneaza_rezervari(id_rezervare, nume, clasa, pret, checkin))
+        return update(rezervari, gestioneaza_rezervari(id_rezervare, nume, clasa, pret, checkin), undo_list, redo_list)
     except ValueError as ve:
         print('Eroare', ve)
 
 
-def handle_delete(rezervari):
+def handle_delete(rezervari, undo_list, redo_list):
     aux = rezervari
     try:
         id_rezervare = int(input('Dati id-ul rezervarii care se va sterge: '))
-        rezervari = delete(rezervari, id_rezervare)
+        rezervari = delete(rezervari, id_rezervare, undo_list, redo_list)
         if aux != rezervari:
             print('Stergerea a avut loc cu succes!')
         return rezervari
@@ -63,7 +69,7 @@ def handle_delete(rezervari):
         print('Eroare:', ve)
 
 
-def handle_crud(rezervari):
+def handle_crud(rezervari, undo_list, redo_list):
     while True:
         print('1. Adaugare')
         print('2. Modificare')
@@ -72,11 +78,11 @@ def handle_crud(rezervari):
         print('b. revenire')
         optiune = input('Optiunea aleasa: ')
         if optiune == '1':
-            rezervari = handle_add(rezervari)
+            rezervari = handle_add(rezervari, undo_list, redo_list)
         elif optiune == '2':
-            rezervari = handle_update(rezervari)
+            rezervari = handle_update(rezervari, undo_list, redo_list)
         elif optiune == '3':
-            rezervari = handle_delete(rezervari)
+            rezervari = handle_delete(rezervari, undo_list, redo_list)
         elif optiune == 'a':
             handle_show_all(rezervari)
         elif optiune == 'b':
@@ -87,10 +93,10 @@ def handle_crud(rezervari):
     return rezervari
 
 
-def handle_trecere_rezervari(rezervari):
+def handle_trecere_rezervari(rezervari, undo_list, redo_list):
     nume = input('Dati numele la care e facuta rezervarea pe care o doriti sa o treceti la o clasa superioara: ')
     aux = rezervari
-    rezervari = trecere_rezervari_la_o_clasa_superioara(rezervari, nume)
+    rezervari = trecere_rezervari_la_o_clasa_superioara(rezervari, nume, undo_list, redo_list)
     if rezervari == aux:
         print(f'Nu exista rezervari pe numele {nume}')
         return rezervari
@@ -99,10 +105,10 @@ def handle_trecere_rezervari(rezervari):
         return rezervari
 
 
-def handle_ieftinire_rezervari(rezervari):
+def handle_ieftinire_rezervari(rezervari, undo_list, redo_list):
     procent = float(input('Dati procentul cu care vreti sa se reduca rezervarile (intre 0 si 100): '))
     aux = rezervari
-    rezervari = ieftinire_rezervari_cu_check_in(rezervari, procent)
+    rezervari = ieftinire_rezervari_cu_check_in(rezervari, procent, undo_list, redo_list)
     if procent < 0 or procent > 100:
         return rezervari
     if rezervari == aux:
@@ -123,8 +129,8 @@ def handle_maximum_price_by_class(rezervari):
             print(f'Nu exista nici o rezervare cu clasa {clasa[i]}')
 
 
-def handle_ordonare_rezervari(rezervari):
-    rezervari = sort_reservations_by_price_decesting(rezervari)
+def handle_ordonare_rezervari(rezervari, undo_list, redo_list):
+    rezervari = sort_reservations_by_price_decesting(rezervari, undo_list, redo_list)
     print('Ordonarea a avut loc cu succes !')
     return rezervari
 
@@ -135,23 +141,45 @@ def handle_afisare_suma_pret_nume(rezervari):
         print(pret)
 
 
-def run_ui(rezervari):
+def handle_undo(rezervari, undo_list, redo_list):
+    try:
+        undo_result = do_undo(undo_list, redo_list, rezervari)
+        if undo_result is not None:
+            return undo_result
+        return rezervari
+    except IndexError:
+        print("Eroare: Nu exista elemente pentru undo")
+
+
+def handle_redo(rezervari, undo_list, redo_list):
+    redo_result = do_redo(undo_list, redo_list, rezervari)
+    if redo_result is not None:
+        return redo_result
+    return rezervari
+
+
+def run_ui(rezervari, undo_list, redo_list):
 
     while True:
+        handle_show_all(rezervari)
         show_menu()
         optiune = input('Optiunea aleasa: ')
         if optiune == '1':
-            rezervari = handle_crud(rezervari)
+            rezervari = handle_crud(rezervari, undo_list, redo_list)
         elif optiune == '2':
-            rezervari = handle_trecere_rezervari(rezervari)
+            rezervari = handle_trecere_rezervari(rezervari, undo_list, redo_list)
         elif optiune == '3':
-            rezervari = handle_ieftinire_rezervari(rezervari)
+            rezervari = handle_ieftinire_rezervari(rezervari, undo_list, redo_list)
         elif optiune == '4':
             handle_maximum_price_by_class(rezervari)
         elif optiune == '5':
-            rezervari = handle_ordonare_rezervari(rezervari)
+            rezervari = handle_ordonare_rezervari(rezervari, undo_list, redo_list)
         elif optiune == '6':
             handle_afisare_suma_pret_nume(rezervari)
+        elif optiune == 'u':
+            rezervari = handle_undo(rezervari, undo_list, redo_list)
+        elif optiune == 'r':
+            rezervari = handle_redo(rezervari, undo_list, redo_list)
         elif optiune == 'x':
             break
         else:

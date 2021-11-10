@@ -15,11 +15,11 @@ def get_data():
 
 def test_create():
         rezervari = get_data()
-        params = (8, 'Sebi', 'economy', 450, 'da')
-        r_new = gestioneaza_rezervari(*params)
+        params = (8, 'Sebi', 'economy', 450, 'da', [], [])
+        r_new = gestioneaza_rezervari(*params[:-2])
         new_rezervare = create(rezervari, *params)
         assert r_new in new_rezervare
-        params2 = (8, 'David', 'economy plus', 543, 'nu')
+        params2 = (8, 'David', 'economy plus', 543, 'nu', [], [])
         try:
                 _ = create(new_rezervare, *params2)
                 assert False
@@ -37,7 +37,7 @@ def test_read():
 def test_update():
         rezervari = get_data()
         r_updated = gestioneaza_rezervari(1, 'Ionica', 'business', 35, 'nu')
-        updated = update(rezervari, r_updated)
+        updated = update(rezervari, r_updated, [], [])
         assert r_updated in updated
         assert r_updated not in rezervari
         assert len(updated) == len(rezervari)
@@ -47,7 +47,7 @@ def test_delete():
         rezervari = get_data()
         to_delete = 4
         r_delted = read(rezervari, to_delete)
-        deleted = delete(rezervari, to_delete)
+        deleted = delete(rezervari, to_delete, [], [])
         assert r_delted not in deleted
         assert r_delted in rezervari
         assert len(deleted) == len(rezervari) - 1
