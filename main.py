@@ -22,7 +22,7 @@ def main():
     rezervari = create(rezervari, 6, "Mario", "economy plus", 24.13, "da", undo_list, redo_list)
     rezervari = create(rezervari, 7, "Luigi", "business", 14.1, "nu", undo_list, redo_list)
     while True:
-        alege = input('Alege ui1 sau ui2 (cea de la tema) sau x pentru oprire: ')
+        alege = input('Alege ui1 sau ui2 (cea de saptamana trecuta) sau x pentru oprire: ')
         if alege == 'ui1':
             run_ui(rezervari, undo_list, redo_list)
         elif alege == 'ui2':
