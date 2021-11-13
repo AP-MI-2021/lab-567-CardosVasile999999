@@ -39,7 +39,7 @@ def run_ui2(rezervari):
                                 clasa = reserve[i + 3]
                                 pret = float(reserve[i + 4])
                                 checkin = reserve[i + 5]
-                                rezervari = create(rezervari, id_ul, nume, clasa, pret, checkin)
+                                rezervari = create(rezervari, id_ul, nume, clasa, pret, checkin, [], [])
                                 i = i + 5
                             except IndexError:
                                 print(f'Nu exista destule elemente pentru adaugare')
@@ -54,7 +54,8 @@ def run_ui2(rezervari):
                                 clasa = reserve[i + 3]
                                 pret = float(reserve[i + 4])
                                 checkin = reserve[i + 5]
-                                rezervari = update(rezervari, gestioneaza_rezervari(id_ul, nume, clasa, pret, checkin))
+                                rezervari = update(rezervari, gestioneaza_rezervari(id_ul, nume, clasa, pret, checkin),
+                                                   [], [])
                                 i = i + 5
                             except IndexError:
                                 print(f'Nu exista destule elemente pentru modificare')
@@ -65,7 +66,7 @@ def run_ui2(rezervari):
                         try:
                             try:
                                 id_ul = int(reserve[i + 1])
-                                rezervari = delete(rezervari, id_ul)
+                                rezervari = delete(rezervari, id_ul, [], [])
                                 i = i + 1
                             except IndexError:
                                 print(f'Nu ati introdus un id pentru stergere')
@@ -82,7 +83,7 @@ def run_ui2(rezervari):
                     try:
                         nume = reserve[i + 1]
                         aux = rezervari
-                        rezervari = trecere_rezervari_la_o_clasa_superioara(rezervari, nume)
+                        rezervari = trecere_rezervari_la_o_clasa_superioara(rezervari, nume, [], [])
                         i = i + 1
                         if aux == rezervari:
                             print(f'Nu exista rezervari pe numele {nume}')
@@ -95,7 +96,7 @@ def run_ui2(rezervari):
                 try:
                     try:
                         procent = float(reserve[i + 1])
-                        rezervari = ieftinire_rezervari_cu_check_in(rezervari, procent)
+                        rezervari = ieftinire_rezervari_cu_check_in(rezervari, procent, [], [])
                         i = i + 1
                     except IndexError:
                         print('Nu ati introdus un procent')

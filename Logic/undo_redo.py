@@ -17,13 +17,13 @@ def do_redo(undo_list, redo_list, current_list):
     """
     Face redo la undo
     :param current_list: lista curenta
-    :param undo_list:
-    :param redo_list:
-    :return:
+    :param undo_list: lista de undo
+    :param redo_list: lista de redo
+    :return: lista inainte de undo
     """
     if redo_list:
         top_redo = redo_list.pop()
         undo_list.append(current_list)
         return top_redo
-
-    return None
+    else:
+        return current_list

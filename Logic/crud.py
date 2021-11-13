@@ -33,7 +33,7 @@ def create(lst_rezervari, id_rezervare, nume, clasa, pret, checkin, undo_list, r
     return lst_rezervari + [rezervare]
 
 
-def read(lst_rezervari, id_rezervare=None):
+def read(lst_rezervari, id_rezervare):
     """
     Citire o rezervare
     :param lst_rezervari: lista de rezervari

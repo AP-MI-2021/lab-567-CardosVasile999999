@@ -149,13 +149,12 @@ def handle_undo(rezervari, undo_list, redo_list):
         return rezervari
     except IndexError:
         print("Eroare: Nu exista elemente pentru undo")
+        return rezervari
 
 
 def handle_redo(rezervari, undo_list, redo_list):
     redo_result = do_redo(undo_list, redo_list, rezervari)
-    if redo_result is not None:
-        return redo_result
-    return rezervari
+    return redo_result
 
 
 def run_ui(rezervari, undo_list, redo_list):
