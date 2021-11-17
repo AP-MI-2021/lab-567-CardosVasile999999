@@ -15,15 +15,15 @@ def main():
     rezervari = []
     undo_list = []
     redo_list = []
-    #  rezervari = create(rezervari, 1, "Vasile", "economy", 123.213, "da", undo_list, redo_list)
-    #  rezervari = create(rezervari, 2, "Alex", "economy plus", 1234.213, "nu", undo_list, redo_list)
-    #  rezervari = create(rezervari, 3, "Ioana", "business", 123.3, "da", undo_list, redo_list)
+    rezervari = create(rezervari, 1, "Vasile", "economy", 123.213, "da", undo_list, redo_list)
+    rezervari = create(rezervari, 2, "Alex", "economy plus", 1234.213, "nu", undo_list, redo_list)
+    rezervari = create(rezervari, 3, "Ioana", "business", 123.3, "da", undo_list, redo_list)
     #  rezervari = create(rezervari, 4, "Lorenzo", "economy plus", 34.213, "nu", undo_list, redo_list)
     #  rezervari = create(rezervari, 5, "Mihai", "economy", 1234, "da", undo_list, redo_list)
     #  rezervari = create(rezervari, 6, "Mario", "economy plus", 24.13, "da", undo_list, redo_list)
     #  rezervari = create(rezervari, 7, "Luigi", "business", 14.1, "nu", undo_list, redo_list)
     while True:
-        alege = input('Alege ui1 sau ui2 (cea de saptamana trecuta) sau x pentru oprire: ')
+        alege = input('Alege ui1 sau ui2 (cea de acum doua saptamani) sau x pentru oprire: ')
         if alege == 'ui1':
             run_ui(rezervari, undo_list, redo_list)
         elif alege == 'ui2':

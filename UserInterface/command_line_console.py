@@ -5,11 +5,12 @@ from Logic.trecere_rezervari import trecere_rezervari_la_o_clasa_superioara
 
 
 def show_menu():
-    print('Scrieti caracterul fiecarei comenzi pe care vreti sa o faceti')
+    print('Scrieti caracterul fiecarei comenzi, separate prin spatii, pe care vreti sa o faceti')
     print('CRUD. Comenzi de CRUD:')
-    print('  a. Adaugare: Dati in aceasta ordine: id_ul rezervarii, numele, clasa, pretul si checkin')
+    print('  a. Adaugare: Dati in aceasta ordine: id_ul rezervarii, numele, '
+          'clasa(economy, economy plus sau business), pretul si checkin(da sau nu)')
     print('  m. Modificare: Dati in aceasta ordine: id_ul rezervarii care se modifica, '
-          'noul nume, noua clasa, noul pret, noul checkin')
+          'numele, clasa(economy, economy plus, business), pretul si checkin(da sau nu)')
     print('  d. Stergere: Dati id_ul rezervarii pe care vreti sa-l stergeti')
     print('  s. Afisare')
     print('trecere. Trecerea tuturor rezervărilor făcute pe un nume citit la o clasă superioară: Dati numele')
